@@ -1,55 +1,55 @@
-#!/bin/sh
+＃！/ binに/ shを
 
-install () {
+インストール {（）
 
-set -eu
+設定 -I
 
-UNAME=$(uname)
-if [ "$UNAME" != "Linux" -a "$UNAME" != "Darwin" -a "$UNAME" != "OpenBSD" ] ; then
-    echo "Sorry, OS not supported: ${UNAME}. Download binary from https://github.com/apex/apex/releases"
-    exit 1
-fi
+それら= $（それらを）
+であれば [ " $ UNAME " ！=  " Linuxの"  -a  " $のUNAME " ！=  "ダーウィン"  -a  " $のUNAME " ！=  " OpenBSDの" ] ;  その後、
+    エコー "申し訳ありませんが、OSには対応していません：$ {UNAME} https://github.com/apex/apex/releasesからバイナリをダウンロードしてください。」
+    出口 1
+あります
 
-if [ "$UNAME" = "Darwin" ] ; then
-  OSX_ARCH=$(uname -m)
-  if [ "${OSX_ARCH}" = "x86_64" ] ; then
-    PLATFORM="darwin_amd64"
-  else
-    echo "Sorry, architecture not supported: ${OSX_ARCH}. Download binary from https://github.com/apex/apex/releases"
-    exit 1
-  fi
-elif [ "$UNAME" = "Linux" ] ; then
-  LINUX_ARCH=$(uname -m)
-  if [ "${LINUX_ARCH}" = "i686" ] ; then
-    PLATFORM="linux_386"
-  elif [ "${LINUX_ARCH}" = "x86_64" ] ; then
-    PLATFORM="linux_amd64"
-  else
-    echo "Sorry, architecture not supported: ${LINUX_ARCH}. Download binary from https://github.com/apex/apex/releases"
-    exit 1
-  fi
-elif [ "$UNAME" = "OpenBSD" ] ; then
-    OPENBSD_ARCH=$(uname -m)
-  if [ "${OPENBSD_ARCH}" = "amd64" ] ; then
-      PLATFORM="openbsd_amd64"
-  else
-      echo "Sorry, architecture not supported: ${OPENBSD_ARCH}. Download binary from https://github.com/apex/apex/releases"
-      exit 1
-  fi
+であれば [ " $ UNAME "  =  "ダーウィン" ] ;  その後、
+  OSX_ARCH = $（のuname -m ）
+  であれば [ " $ {OSX_ARCH} "  =  " x86_64版" ] ;  その後、
+    PLATFORM = " darwin_amd64 "
+  ほかに
+    エコー "申し訳ありませんが、アーキテクチャがサポートされていません：$ {OSX_ARCH} https://github.com/apex/apex/releasesからバイナリをダウンロードしてください。」
+    出口 1
+  あります
+elifの [ " $ UNAME "  =  " Linuxの" ] ;  その後、
+  LINUX_ARCH = $（のuname -mを）
+  であれば [ " $ {LINUX_ARCH} "  =  " i686の" ] ;  その後、
+    PLATFORM = " linux_386 "
+  elifの [ " $ {LINUX_ARCH} "  =  " x86_64版" ] ;  その後、
+    PLATFORM = " linux_amd64 "
+  ほかに
+    エコー "申し訳ありませんが、アーキテクチャがサポートされていません：$ {LINUX_ARCH} https://github.com/apex/apex/releasesからバイナリをダウンロードしてください。」
+    出口 1
+  あります
+elifの [ " $ UNAME "  =  " OpenBSDの" ] ;  その後、
+    OPENBSD_ARCH = $（のuname -mを）
+  であれば [ " $ {OPENBSD_ARCH} "  =  " AMD64 " ] ;  その後、
+      PLATFORM = " openbsd_amd64 "
+  ほかに
+      エコー "申し訳ありませんが、アーキテクチャがサポートされていません：$ {OPENBSD_ARCH} https://github.com/apex/apex/releasesからバイナリをダウンロードしてください。」
+      出口 1
+  あります
 
-fi
+あります
 
-LATEST=$(curl -s https://api.github.com/repos/apex/apex/tags | grep -Eo '"name":.*?[^\\]",'  | head -n 1 | sed 's/[," ]//g' | cut -d ':' -f 2)
-URL="https://github.com/apex/apex/releases/download/$LATEST/apex_$PLATFORM"
-DEST=${DEST:-/usr/local/bin/apex}
+LATEST = $（カール-s https://api.github.com/repos/apex/apex/tags | grepの-Eo ' "名前"：？* [^ \\] "、'   |ヘッド-n 1 | sedの' sの/ [、 "] //グラム'  |カット-d '：' -f 2 ）
+URL = " https://github.com/apex/apex/releases/download/ $ LATEST / apex_の$のPLATFORM 」
+DEST = $ {DEST ： - / USR /ローカル/ binに/頂点}
 
-if [ -z $LATEST ] ; then
-  echo "Error requesting. Download binary from https://github.com/apex/apex/releases"
-  exit 1
-else
-  curl -sL https://github.com/apex/apex/releases/download/$LATEST/apex_$PLATFORM -o $DEST
-  chmod +x $DEST
-fi
+であれば [ -z  $ LATEST ] ;  その後、
+  エコー "エラー要求する。https://github.com/apex/apex/releasesからバイナリをダウンロードしてください」
+  出口 1
+ほかに
+  -sL https://github.com/apex/apex/releases/download/カール$ LATEST / apex_の$プラットフォーム -o $ DEST
+  chmodの+ X $ DEST
+あります
 }
 
-install
+インストールル
